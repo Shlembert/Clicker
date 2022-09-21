@@ -8,30 +8,33 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private TMP_Text balanse;
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private Transform target;
-    [SerializeField] private List<Data> companies;
+    [SerializeField] private TMP_Text _balanceTxt;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private Transform _target;
+    [SerializeField] private List<Data> _companies;
 
-    private List<SaveCompany> saveCompany;
+    private List<SaveCompany> _saveCompany;
+
     private float _balance;
 
     private void Start()
     {
-        balanse.text = ($"Баланс: " + _balance + "$");
+        _saveCompany = new List<SaveCompany>();
+
+        _balanceTxt.text = ($"Баланс: " + _balance + "$");
 
         Vector2 size = new(1, 1);
 
-        if (companies.Count > 0)
+        if (_companies.Count > 0)
         {
-            for (int i = 0; i < companies.Count; i++)
+            for (int i = 0; i < _companies.Count; i++)
             {
-                GameObject obj = Instantiate(prefab, target.position, Quaternion.identity);
+                GameObject obj = Instantiate(_prefab, _target.position, Quaternion.identity);
 
-                obj.transform.SetParent(target);
+                obj.transform.SetParent(_target);
                 obj.transform.localScale = size;
-                obj.GetComponent<CompanyController>().data = companies[i];
-                obj.GetComponent<CompanyController>().nameCompany = companies[i].NameCompany;
+                obj.GetComponent<CompanyController>().data = _companies[i];
+                obj.GetComponent<CompanyController>().nameCompany = _companies[i].NameCompany;
             }
         }
 
@@ -63,8 +66,8 @@ public class GameController : MonoBehaviour
 
     private void ShowBalance()
     {
-        if (_balance < 1000000) balanse.text = ($"Баланс: " + _balance + "$");
-        else balanse.text = ($"Баланс: " + _balance * 0.000001 + "M$");
+        if (_balance < 1000000) _balanceTxt.text = ($"Баланс: " + _balance + "$");
+        else _balanceTxt.text = ($"Баланс: " + _balance * 0.000001 + "M$");
     }
 
     private void CanBuy(float value, Button button, int id)
@@ -93,7 +96,7 @@ public class GameController : MonoBehaviour
 
         data.Balance = _balance;
 
-        foreach (var item in saveCompany)
+        foreach (var item in _saveCompany)
         {
             data.CompaniesList.Add(item);
         }
@@ -104,18 +107,18 @@ public class GameController : MonoBehaviour
 
     private void AddSaveCompany(SaveCompany company)
     {
-        if (saveCompany.Count == 0) saveCompany.Add(company);
+        if (_saveCompany.Count == 0) _saveCompany.Add(company);
         else
         {
-            foreach (var item in saveCompany)
+            foreach (var item in _saveCompany)
             {
                 if (company.Name == item.Name)
                 {
-                    saveCompany.Remove(item);
+                    _saveCompany.Remove(item);
                     break;
                 }
             }
-            saveCompany.Add(company);
+            _saveCompany.Add(company);
         }
     }
 
@@ -136,7 +139,7 @@ public class GameController : MonoBehaviour
 
             foreach (var item in data.CompaniesList)
             {
-                saveCompany.Add(item);
+                _saveCompany.Add(item);
             }
 
             Events.OnLoadCompany.Invoke(data);
@@ -155,7 +158,7 @@ public class GameController : MonoBehaviour
 
             _balance = 0;
 
-            saveCompany.Clear();
+            _saveCompany.Clear();
 
             ShowBalance();
         }

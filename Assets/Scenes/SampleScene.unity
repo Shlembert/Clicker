@@ -601,7 +601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1069605077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -761,10 +761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8161c2cc93bd89449a49b114be7ae549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balanse: {fileID: 1628776438}
-  prefab: {fileID: 8644430064523504652, guid: 54b6728ad71e09f4e8cc3ee1c92405f3, type: 3}
-  target: {fileID: 2100747800}
-  companies:
+  _balanceTxt: {fileID: 1628776438}
+  _prefab: {fileID: 8644430064523504652, guid: 54b6728ad71e09f4e8cc3ee1c92405f3, type: 3}
+  _target: {fileID: 2100747800}
+  _companies:
   - {fileID: 11400000, guid: 7cd6052e08282e2439fc7120c185e5c8, type: 2}
   - {fileID: 11400000, guid: a72e85955a974094da9920421b6f1a95, type: 2}
   - {fileID: 11400000, guid: 6ef173ffc3053a74bb2d6eda41f870ef, type: 2}
